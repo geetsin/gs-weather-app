@@ -17,13 +17,12 @@ namespace weather_app.Services
         public async Task<Tuple<string, string>> getCityLatitudeAndLongitude(string pCityName)
         {
             var openWeatherApiKey = _config["OpenWeather:gs-weather-app-openweather-key"];
-            var geoCodingApiURL = _config["OpenWeather:GeocodingApiURL"];
 
             var apiParameters = $"?q={pCityName}&appid={openWeatherApiKey}";
 
 
             var client = new HttpClient();
-            client.BaseAddress = new Uri(geoCodingApiURL);
+            client.BaseAddress = new Uri(Helper.OPENWEATHERMAP_GEOCODING_API);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             HttpResponseMessage response = await client.GetAsync(apiParameters).ConfigureAwait(false);
@@ -50,7 +49,6 @@ namespace weather_app.Services
         public async Task<OpenWeatherVM> getCityWeather(string pCityName)
         {
             var openWeatherApiKey = _config["OpenWeather:gs-weather-app-openweather-key"];
-            var weatherApiURL = _config["OpenWeather:WeatherApiURL"];
 
             Tuple<string,string> cityCoordinates = getCityLatitudeAndLongitude(pCityName).Result;
 
@@ -58,7 +56,7 @@ namespace weather_app.Services
 
 
             var client = new HttpClient();
-            client.BaseAddress = new Uri(weatherApiURL);
+            client.BaseAddress = new Uri(Helper.OPENWEATHERMAP_WEATHER_API);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             HttpResponseMessage response = await client.GetAsync(apiParameters).ConfigureAwait(false);
@@ -98,7 +96,6 @@ namespace weather_app.Services
         public async Task<string> getLocationWallpaperUrl(string pLocation)
         {
             var unsplashApiKey = _config["Unsplash:gs-weather-app-unsplash-key"];
-            var photoSearchApiURL = _config["Unsplash:PhotoSearchApiURL"];
 
             var apiParameters = $"?page=1&query={pLocation}&client_id={unsplashApiKey}&orientation=landscape";
 
@@ -106,7 +103,7 @@ namespace weather_app.Services
             
 
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(photoSearchApiURL);
+            client.BaseAddress = new Uri(Helper.UNSPLASH_SEARCH_API);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             HttpResponseMessage response = await client.GetAsync(apiParameters).ConfigureAwait(false);
