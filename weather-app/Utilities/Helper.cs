@@ -2,6 +2,8 @@
 {
     public static class Helper
     {
+        // A global variable to check if the env is Development
+        public static bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
         // API LISTS
         public static string UNSPLASH_SEARCH_API = "https://api.unsplash.com/search/photos";

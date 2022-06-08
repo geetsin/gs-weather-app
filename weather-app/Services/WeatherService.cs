@@ -9,6 +9,7 @@ namespace weather_app.Services
     public class WeatherService : IWeatherService
     {
         private readonly IConfiguration _config;
+        
 
         public WeatherService(IConfiguration config)
         {
@@ -16,10 +17,13 @@ namespace weather_app.Services
         }
         public async Task<Tuple<string, string>> getCityLatitudeAndLongitude(string pCityName)
         {
-            var openWeatherApiKey = _config["OpenWeather:gs-weather-app-openweather-key"];
+            var openWeatherApiKey = _config["gs-weather-app-openweather-key"]; // API key for Prod
+            if (Helper.isDevelopment)
+            {
+                openWeatherApiKey = _config["OpenWeather:ServiceApiKey"];
+            }
 
             var apiParameters = $"?q={pCityName}&appid={openWeatherApiKey}";
-
 
             var client = new HttpClient();
             client.BaseAddress = new Uri(Helper.OPENWEATHERMAP_GEOCODING_API);
@@ -48,7 +52,11 @@ namespace weather_app.Services
 
         public async Task<OpenWeatherVM> getCityWeather(string pCityName)
         {
-            var openWeatherApiKey = _config["OpenWeather:gs-weather-app-openweather-key"];
+            var openWeatherApiKey = _config["gs-weather-app-openweather-key"]; // API key for Prod
+            if (Helper.isDevelopment)
+            {
+                openWeatherApiKey = _config["OpenWeather:ServiceApiKey"];
+            }
 
             Tuple<string,string> cityCoordinates = getCityLatitudeAndLongitude(pCityName).Result;
 
@@ -95,7 +103,11 @@ namespace weather_app.Services
         // TODO: Implement this method with RestSharp
         public async Task<string> getLocationWallpaperUrl(string pLocation)
         {
-            var unsplashApiKey = _config["Unsplash:gs-weather-app-unsplash-key"];
+            var unsplashApiKey = _config["gs-weather-app-unsplash-key"]; // API key for Prod
+            if (Helper.isDevelopment)
+            {
+                unsplashApiKey = _config["Unsplash:ServiceApiKey"];
+            }
 
             var apiParameters = $"?page=1&query={pLocation}&client_id={unsplashApiKey}&orientation=landscape";
 
