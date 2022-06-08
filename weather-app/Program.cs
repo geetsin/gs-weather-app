@@ -1,4 +1,5 @@
 using weather_app.Services;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,14 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 // Add IWeatherService Service
 builder.Services.AddTransient<IWeatherService, WeatherService>();
+
+//
+if(builder.Environment.IsProduction())
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+        new DefaultAzureCredential());
+}
 
 var app = builder.Build();
 

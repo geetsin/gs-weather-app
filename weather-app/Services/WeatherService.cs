@@ -16,7 +16,7 @@ namespace weather_app.Services
         }
         public async Task<Tuple<string, string>> getCityLatitudeAndLongitude(string pCityName)
         {
-            var openWeatherApiKey = _config["OpenWeather:ServiceApiKey"];
+            var openWeatherApiKey = _config["OpenWeather:gs-weather-app-openweather-key"];
             var geoCodingApiURL = _config["OpenWeather:GeocodingApiURL"];
 
             var apiParameters = $"?q={pCityName}&appid={openWeatherApiKey}";
@@ -49,7 +49,7 @@ namespace weather_app.Services
 
         public async Task<OpenWeatherVM> getCityWeather(string pCityName)
         {
-            var openWeatherApiKey = _config["OpenWeather:ServiceApiKey"];
+            var openWeatherApiKey = _config["OpenWeather:gs-weather-app-openweather-key"];
             var weatherApiURL = _config["OpenWeather:WeatherApiURL"];
 
             Tuple<string,string> cityCoordinates = getCityLatitudeAndLongitude(pCityName).Result;
@@ -97,7 +97,7 @@ namespace weather_app.Services
         // TODO: Implement this method with RestSharp
         public async Task<string> getLocationWallpaperUrl(string pLocation)
         {
-            var unsplashApiKey = _config["Unsplash:ServiceApiKey"];
+            var unsplashApiKey = _config["Unsplash:gs-weather-app-unsplash-key"];
             var photoSearchApiURL = _config["Unsplash:PhotoSearchApiURL"];
 
             var apiParameters = $"?page=1&query={pLocation}&client_id={unsplashApiKey}&orientation=landscape";
