@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿//using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using weather_app.Models.DataModels;
 using weather_app.Models.ViewModels;
 using weather_app.Utilities;
@@ -34,7 +35,8 @@ namespace weather_app.Services
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var openWeatherLatLongResponse = JsonConvert.DeserializeObject<List<OpenWeatherGeocodingObj>>(jsonString);
+                //var openWeatherLatLongResponse = JsonConvert.DeserializeObject<List<OpenWeatherGeocodingObj>>(jsonString);
+                var openWeatherLatLongResponse = JsonSerializer.Deserialize<List<OpenWeatherGeocodingObj>>(jsonString);
 
                 string responseLatitude = openWeatherLatLongResponse[0].lat.ToString("F4");
                 string responseLongitude = openWeatherLatLongResponse[0].lon.ToString("F4");
@@ -72,7 +74,8 @@ namespace weather_app.Services
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var openWeatherResponse = JsonConvert.DeserializeObject<OpenWeatherObj>(jsonString);
+                //var openWeatherResponse = JsonConvert.DeserializeObject<OpenWeatherObj>(jsonString);
+                var openWeatherResponse = JsonSerializer.Deserialize<OpenWeatherObj>(jsonString);
 
                 OpenWeatherVM weatherData = new OpenWeatherVM()
                 {
@@ -124,7 +127,8 @@ namespace weather_app.Services
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var unsplashResponse = JsonConvert.DeserializeObject<UnsplashResponse>(jsonString);
+                //var unsplashResponse = JsonConvert.DeserializeObject<UnsplashResponse>(jsonString);
+                var unsplashResponse = JsonSerializer.Deserialize<UnsplashResponse>(jsonString);
                 var randomNo = random.Next(unsplashResponse.results.Count());
                 Console.WriteLine(unsplashResponse.results[randomNo].urls.full);
                 return unsplashResponse.results[randomNo].urls.regular;
