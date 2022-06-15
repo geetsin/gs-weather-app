@@ -12,22 +12,22 @@
 </head>
 <body>
     <header>
-@*        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-
-        </nav>*@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        
     </div>
-
-    <footer class="footer text-center bg-white">
-        <div class="container w-100 mt-1 pb-1">
-            <p>Powered by <a href="https://openweathermap.org/">OpenWeather</a> and <a href="https://unsplash.com/">Unsplash</a> | Made with ❤️ by <a href="https://www.geets.in">geets.in</a></p>
+    <footer class="footer text-center bg-dark p-2 fixed-bottom" style="--bs-bg-opacity: .8;">
+        <div class="container">
+            <p class="text-light">Powered by <a href="https://openweathermap.org/">OpenWeather</a> and <a href="https://unsplash.com/">Unsplash</a> | Made with ❤️ by <a href="https://www.geets.in" class="text-danger">geets.in</a></p>
             <p></p>
         </div>
     </footer>
+
+
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
