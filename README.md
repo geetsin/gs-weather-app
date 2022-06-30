@@ -6,3 +6,10 @@ weather-app demonstrates usages of HttpClient to use third-party API to consume 
 
 The app uses APIs provided by Unsplash and Openweather as data sources.
  
+ ## Technologies
+A list of technologies used within the project:
+* ASP.NET Core Web API
+* HTML, Bootstrap CSS, Javascript and jQuery
+* Microsoft JSON Serializer
+* Microsoft Azure key vault
+* NUnit for unit testing
