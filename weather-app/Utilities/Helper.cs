@@ -2,6 +2,11 @@
 {
     public static class Helper
     {
+        public static int CODE_FAILURE = 0;
+        public static int CODE_SUCCESS = 1;
+
+        public static string CITY_DATA_LOCATION = "Data/city_data_simplified.json";
+
         // A global variable to check if the env is Development
         public static bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 

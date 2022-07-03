@@ -5,14 +5,14 @@
 
 // Write your JavaScript code.
 $(document).ready(function () {
-    
+
 });
 
 var routeURL = location.protocol + "//" + location.host;
+var autocompleteSuggestions;
 
 function getCityWeatherAndWallpaper() {
     var cityName = $('#cityInput').val().toLowerCase(); // Get the city name in lowercase
-
     // Hide any city weather data showing from previous search
     hideWeatherDataElement();
 
@@ -20,10 +20,63 @@ function getCityWeatherAndWallpaper() {
     getCityWeather(cityName);
 }
 
+function getCityNameSuggestions() {
+    
+    if ($('#cityInput').val().length == 2) {
+        const localApiURL = routeURL + '/api/city/autocomplete?input=' + $('#cityInput').val();
+        console.log("**LOG: API URL: ", localApiURL);
+
+        $.ajax({
+            url: localApiURL,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response.status == 1 && response.dataenum != undefined) {
+                    console.log("**LOG: Autocomplete suggestion received ");
+                    autocompleteSuggestions = response.dataenum;
+                    displayAutocompleteSuggestions(autocompleteSuggestions);
+
+                } else {
+                    console.log("**LOG: ERROR returned from API 'city/autocomplete':  ", response.message);
+                }
+            },
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                console.log("** LOG: ", msg);
+            },
+        });
+    } else {
+        displayAutocompleteSuggestions(autocompleteSuggestions);
+    }
+}
+
+function displayAutocompleteSuggestions(suggestions) {
+    $("#cityInput").autocomplete({
+        source: suggestions
+    });
+}
 
 // Get the respective city wallpaer and set it as wallpaper
-function getCityWallpaper(cityName) {
-    const localApiURL = routeURL + '/api/wallpaper/' + cityName;
+function getCityWallpaper(cityNameInput) {
+    let cityNameArr = cityNameInput.split(',');
+
+    const localApiURL = routeURL + '/api/wallpaper/' + cityNameArr[0];
     console.log("**LOG: API URL: ", localApiURL);
 
     // jQuery API call to get wallpaper location from WebAPI api/GetLocationWallpaper/

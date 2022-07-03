@@ -6,6 +6,7 @@ namespace weather_app.Controllers.Api
 {
     [Route("api")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class WeatherApiController : ControllerBase
     {
         private readonly IWeatherService _weatherService;

@@ -7,7 +7,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Cabin', sans-serif;
-
     background: url(https://images.unsplash.com/photo-1624138784614-87fd1b6528f8?ixlib=rb-1.2.1) no-repeat center center fixed;
     background-size: cover;
 }
@@ -85,4 +84,40 @@ a {
 #wData {
     transition: 0.5s;
     visibility: hidden;
+}
+
+#ui-id-1 {
+    background-color: white;
+    position: relative !important;
+    margin: 20px auto;
+    text-align: center;
+    left: 14.3542px !important;
+    /*border: 2px solid #e86442;*/
+    padding: 8px 10px;
+    width: 200px !important;
+    max-height: 200px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    outline: none;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    transition: 0.25s;
+    font-size: medium;
+    z-index: 25 !important;
+}
+
+    #ui-id-1 li {
+        list-style: none;
+        border-bottom: .5px solid #e86442;
+        padding: 5px;
+        margin: 2px;
+    }
+
+        #ui-id-1 li:hover {
+            color: #5945c5;
+            cursor: pointer;
+        }
+.ui-helper-hidden-accessible {
+    display: none;
 }

@@ -6,9 +6,8 @@
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-10 col-lg-8 col-xl-6">
-
                 <div class="box text-white" id="box" style="border-radius: 40px;">
-                    <form onsubmit="event.preventDefault(); getCityWeatherAndWallpaper()" class="text-center mt-3">
+                    <form onsubmit="event.preventDefault(); getCityWeatherAndWallpaper()" oninput="getCityNameSuggestions()" autocomplete="off" class="text-center mt-3">
                         <!-- <h1>gWeather</h1> -->
                         <input type="text" name="" placeholder="Search city" id="cityInput">
                         <input type="submit" name="" value="Go!" href="#"><hr>
