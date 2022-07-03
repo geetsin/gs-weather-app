@@ -3,11 +3,20 @@ using Azure.Identity;
 using AspNetCoreRateLimit;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Microsoft.AspNetCore.OData;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddOData(options => options
+    .Select()
+    .Filter()
+    .Expand()
+    .SetMaxTop(25)
+    .Count()
+    .OrderBy()
+    ); 
 
 if (builder.Environment.IsDevelopment())
 {
@@ -28,6 +37,8 @@ builder.Services.AddTransient<ICityService, CityService>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 builder.Services.AddInMemoryRateLimiting();
+
+
 // Configure Rate Limiting
 builder.Services.Configure<IpRateLimitOptions>(options =>
 {
@@ -75,7 +86,7 @@ builder.Services.AddSwaggerGen(options =>
 
 
 //Connecting to Azure Key Vault in Production
-if (builder.Environment.IsProduction())
+if(builder.Environment.IsProduction())
 {
     builder.Configuration.AddAzureKeyVault(
         new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
