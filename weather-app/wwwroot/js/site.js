@@ -23,7 +23,7 @@ function getCityWeatherAndWallpaper() {
 function getCityNameSuggestions() {
     
     if ($('#cityInput').val().length == 2) {
-        const localApiURL = routeURL + '/api/city/autocomplete?input=' + $('#cityInput').val();
+        const localApiURL = routeURL + '/api/city/autocomplete/' + $('#cityInput').val();
         console.log("**LOG: API URL: ", localApiURL);
 
         $.ajax({
