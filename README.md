@@ -13,3 +13,12 @@ A list of technologies used within the project:
 * Microsoft JSON Serializer
 * Microsoft Azure key vault
 * NUnit for unit testing
+* Swagger API Documentation
+* ASP.NET Core API Rate Limiting
+* OData protocol filtering for APIs
+
+ ## REST APIs
+ SwaggerUI: https://gs-weather-app.azurewebsites.net/swagger/index.html
+ 
+ The app also provides WebAPIs for world city names:
+ * Autocomplete Suggestion for city names around the world
