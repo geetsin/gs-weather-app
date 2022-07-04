@@ -23,7 +23,7 @@ namespace weather_app.Services
             var fullPath = Path.Combine(rootPath, Helper.CITY_DATA_LOCATION);
 
             var cityJsonData = await File.ReadAllTextAsync(fullPath);
-            IEnumerable<CityAutocompleteObj> cityDataList = JsonSerializer.Deserialize<IEnumerable<CityAutocompleteObj>>(cityJsonData)!;
+            IEnumerable<CityObj> cityDataList = JsonSerializer.Deserialize<IEnumerable<CityObj>>(cityJsonData)!;
 
 
             foreach (var cityAutocompleteObj in cityDataList)
@@ -36,6 +36,37 @@ namespace weather_app.Services
             }
 
             return cityAutocompleteSuggestionsList;
+        }
+
+        public async Task<List<CityDetailsObj>> GetCityDetails(string pInput)
+        {
+            List<CityDetailsObj> cityDetailsList = new List<CityDetailsObj>();
+
+            var rootPath = _hostEnvironment.ContentRootPath;
+            var fullPath = Path.Combine(rootPath, Helper.CITY_DATA_LOCATION);
+
+            var cityJsonData = await File.ReadAllTextAsync(fullPath);
+            IEnumerable<CityObj> cityDataList = JsonSerializer.Deserialize<IEnumerable<CityObj>>(cityJsonData)!;
+
+            foreach (var cityObj in cityDataList)
+            {
+                if (cityObj.fields.name.ToUpper() == pInput.ToUpper())
+                {
+                    CityDetailsObj cityDetailsObj = new CityDetailsObj();
+                    cityDetailsObj.city_name = cityObj.fields.name;
+                    cityDetailsObj.alternate_names = cityObj.fields.alternate_names;
+                    cityDetailsObj.ascii_name = cityObj.fields.ascii_name;
+                    cityDetailsObj.country_name = cityObj.fields.cou_name_en;
+                    cityDetailsObj.country_code = cityObj.fields.country_code;
+                    cityDetailsObj.elevation = cityObj.fields.elevation;
+                    cityDetailsObj.population = cityObj.fields.population;
+                    cityDetailsObj.timezone = cityObj.fields.timezone;
+
+                    cityDetailsList.Add(cityDetailsObj);
+                }
+            }
+
+            return cityDetailsList;
         }
     }
 }

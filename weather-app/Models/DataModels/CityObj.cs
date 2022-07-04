@@ -1,6 +1,6 @@
 ﻿namespace weather_app.Models.DataModels
 {
-    public class CityAutocompleteObj
+    public class CityObj
     {
         public Fields fields { get; set; }
         public Geometry geometry { get; set; }
